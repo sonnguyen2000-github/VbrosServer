@@ -54,7 +54,7 @@ wsServer.on('request', request => {
     })
 
     connection.on('message', message => {
-        if (message.type === 'utf-8') {
+        if (message.type === 'utf8') {
             console.log('Received Message:');
 
             try {
