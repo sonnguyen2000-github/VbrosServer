@@ -2,7 +2,7 @@ import { createServer } from 'http';
 import { server as WebSocketServer } from 'websocket';
 import { CODE } from './code.js';
 
-const port = process.env.PORT || 7979;
+const port = process.env.PORT || 3000;
 
 const CONNECTIONS = new Map();//All connections
 
