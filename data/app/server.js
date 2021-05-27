@@ -1,6 +1,6 @@
 import { createServer } from 'http';
 import { server as WebSocketServer } from 'websocket';
-import { CODE } from './code';
+import { CODE } from './code.js';
 
 const port = process.env.PORT || 7979;
 
