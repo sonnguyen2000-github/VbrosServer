@@ -27,7 +27,7 @@ wsServer.on('request', request => {
     if (!originIsAllowed(request.origin)) {
         console.log("Denied connection from", request.socket.localAddress);
         return;
-    }
+    } 
 
     const connection = request.accept(null, request.origin);
 
