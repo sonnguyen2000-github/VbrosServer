@@ -71,7 +71,7 @@ wsServer.on('request', request => {
                 message: "Got it",
             }
 
-            for (let connection of Object.keys(CONNECTIONS)) {
+            for (let connection of Object.values(CONNECTIONS)) {
                 connection.sendUTF(JSON.stringify(msg));
             }
 
