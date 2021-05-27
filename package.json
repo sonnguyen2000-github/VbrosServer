@@ -1,0 +1,16 @@
+{
+    "type": "module",
+    "name": "VbrosServer",
+    "description": "a really cool app",
+    "version": "1.0.0",
+    "engines": {
+        "node": "14.15.4"
+    },
+    "scripts": {
+        "start": "node ./data/app/server.js",
+        "test": "nodemon ./data/app/server.js"
+    },
+    "dependencies": {
+        "websocket": "^1.0.34"
+    }
+}
