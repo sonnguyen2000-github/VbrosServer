@@ -4,7 +4,7 @@ import { CODE } from './code.js';
 
 const port = process.env.PORT || 7979;
 
-const CONNECTIONS = {}//All connections
+const CONNECTIONS = new Map();//All connections
 
 const server = createServer((request, response) => {
     response.writeHead(200, 'text/html');
@@ -33,7 +33,7 @@ wsServer.on('request', request => {
 
     console.log((new Date()) + ' Connection accepted.', request.host, request.socket.localAddress);
 
-    CONNECTIONS[connection] = connection;
+    CONNECTIONS.set(connection, true);
 
     const welcome = {
         code: 200,
@@ -45,12 +45,12 @@ wsServer.on('request', request => {
     connection.on('error', err => {
         console.error("A connection went wrong", err);
         connection.close();
-        if (CONNECTIONS[connection]) delete CONNECTIONS[connection];
+        if (CONNECTIONS.has(connection)) CONNECTIONS.delete(connection);
     });
 
     connection.on('close', (code, description) => {
         console.log("A connection closed", code, description);
-        if (CONNECTIONS[connection]) delete CONNECTIONS[connection];
+        if (CONNECTIONS.has(connection)) CONNECTIONS.delete(connection);
     })
 
     connection.on('message', message => {
@@ -70,12 +70,14 @@ wsServer.on('request', request => {
                 code: CODE.OK,
                 message: "Got it",
             }
+            
+            connection.sendUTF(JSON.stringify(reply));
 
-            for (let connection of Object.values(CONNECTIONS)) {
-                connection.sendUTF(JSON.stringify(msg));
+            for (let client of CONNECTIONS.keys()) {
+                client.sendUTF(JSON.stringify(msg));
             }
 
-            connection.sendUTF(JSON.stringify(reply))
+            
         }
     })
 })
