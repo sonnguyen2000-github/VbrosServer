@@ -7,6 +7,8 @@ const port = process.env.PORT || 3000;
 const CONNECTIONS = new Map();//All connections
 
 const server = createServer((request, response) => {
+    console.log((new Date()) + ' Received request for ' + request.url);
+    
     response.writeHead(200, 'text/html');
     response.write("Hello Vbros !!");
     response.end();
